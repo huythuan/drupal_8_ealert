@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.ealert.body
+    - field.field.node.ealert.field_outreach
+    - node.type.ealert
+  module:
+    - text
+    - user
+id: node.ealert.teaser
+targetEntityType: node
+bundle: ealert
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_outreach: true

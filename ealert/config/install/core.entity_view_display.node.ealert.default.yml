@@ -1,0 +1,54 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.ealert.body
+    - field.field.node.ealert.field_outreach
+    - field.field.node.ealert.field_preheader
+    - field.field.node.ealert.field_subject_line
+    - field.field.node.ealert.field_universe
+    - node.type.ealert
+  module:
+    - text
+    - user
+id: node.ealert.default
+targetEntityType: node
+bundle: ealert
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  field_preheader:
+    weight: 102
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_subject_line:
+    weight: 104
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_universe:
+    weight: 103
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden:
+  field_outreach: true

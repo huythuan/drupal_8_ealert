@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ealert
+name: Outrech
+vid: ealert_outreach_taxonomy
+description: 'Type of outreach'
+hierarchy: 0
+weight: 0

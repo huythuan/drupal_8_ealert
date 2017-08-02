@@ -1,0 +1,7 @@
+ealert.admin_ealert_settings_form:
+  title: 'E-Alert config block'
+  route_name: ealert.admin_ealert_settings_form
+  description: 'Setting for ealert file.'
+  parent: system.admin_config_content
+  weight: 99
+

@@ -1,0 +1,38 @@
+<?php
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\taxonomy\Entity\Vocabulary;
+
+/**
+ * @file
+ * Install, update and uninstall functions for ealert
+ */
+
+/**
+ * Implements hook_install().
+ */
+function ealert_install() {
+    $vid = "ealert_outreach_taxonomy";
+    $name = "Outrech";
+    $vocabularies = Vocabulary::loadMultiple();
+
+    if (!isset($vocabularies[$vid])) {
+        $vocabulary = Vocabulary::create(array(
+              'vid' => $vid,
+              'description' => 'Type of outreach',
+              'name' => $name,
+        ));
+        $vocabulary->save();
+
+        $term = Term::create([
+              'name' => 'E-Blast',
+              'vid' => $vid,
+        ]);
+        $term->save();
+        $term = Term::create([
+              'name' => 'E-News',
+              'vid' => $vid,
+        ]);
+        $term->save();
+    }
+}

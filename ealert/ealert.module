@@ -1,0 +1,105 @@
+<?php
+
+/**
+ * @file
+ * Contains ealert.module.
+ */
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
+use Drupal\ealert\EalertUtility;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_node_presave().
+ * @param NodeInterface $node
+ */
+function ealert_node_presave(NodeInterface $node) {
+    if ($node->getType() == 'ealert') {
+        $value = $node->body->value;
+        $term_id = \Drupal\taxonomy\Entity\Term::load($node->get('field_outreach')->target_id)->id();
+        $template = \Drupal::config('ealert.adminealertsettings')->get('ealert_' . $term_id);
+
+        //replace token
+        $token_service = \Drupal::token();
+        $content = $token_service->replace($template, ['node' => $node]);
+
+        $file_name = date('Ymd', $node->getCreatedTime()) . '_' . $node->get('nid')->value . '.htm';
+
+        $dir_name = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/e_alert';
+
+        if (!is_dir($dir_name)) {
+            mkdir($dir_name, 0755);
+        }
+
+        $file_path = $dir_name . '/' . $file_name;
+        //Process content
+        //$content = $term;
+        $fp = fopen($file_path, "wb");
+        fwrite($fp, $content);
+        fclose($fp);
+
+
+
+        //print($file_path);
+        //die();
+    }
+}
+
+function ealert_node_insert($node) {
+    if ($node->getType() == 'ealert') {
+        $value = $node->body->value;
+        $term_id = \Drupal\taxonomy\Entity\Term::load($node->get('field_outreach')->target_id)->id();
+        $template = \Drupal::config('ealert.adminealertsettings')->get('ealert_' . $term_id);
+
+        //replace token
+        $token_service = \Drupal::token();
+        $content = $token_service->replace($template, ['node' => $node]);
+
+        $file_name = date('Ymd', $node->getCreatedTime()) . '_' . $node->get('nid')->value . '.htm';
+
+        $dir_name = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/e_alert';
+
+        if (!is_dir($dir_name)) {
+            mkdir($dir_name, 0755);
+        }
+
+        $file_path = $dir_name . '/' . $file_name;
+        //Process content
+        //$content = $term;
+        $fp = fopen($file_path, "wb");
+        fwrite($fp, $content);
+        fclose($fp);
+
+
+
+        //print($file_path);
+        //die();
+    }
+}
+
+/**
+ * Get e-alert file path
+ * @param type $node
+ * return string $path
+ */
+function ealert_get_ealert_file_path($node) {
+    if ($node->getType() == 'ealert') {
+        
+    }
+}
+
+/**
+ * Implements hook_help().
+ */
+function ealert_help($route_name, RouteMatchInterface $route_match) {
+    switch ($route_name) {
+        // Main module help for the ealert module.
+        case 'help.page.ealert':
+            $output = '';
+            $output .= '<h3>' . t('About') . '</h3>';
+            $output .= '<p>' . t('Creating e-alert file for sending email') . '</p>';
+            return $output;
+
+        default:
+    }
+}
