@@ -23,25 +23,14 @@ function ealert_node_presave(NodeInterface $node) {
         $token_service = \Drupal::token();
         $content = $token_service->replace($template, ['node' => $node]);
 
-        $file_name = date('Ymd', $node->getCreatedTime()) . '_' . $node->get('nid')->value . '.htm';
+        // get file path
+        $file_path = EalertUtility::ealert_get_ealert_file_path($node);
 
-        $dir_name = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/e_alert';
 
-        if (!is_dir($dir_name)) {
-            mkdir($dir_name, 0755);
-        }
-
-        $file_path = $dir_name . '/' . $file_name;
-        //Process content
-        //$content = $term;
         $fp = fopen($file_path, "wb");
         fwrite($fp, $content);
         fclose($fp);
 
-
-
-        //print($file_path);
-        //die();
     }
 }
 
@@ -55,15 +44,8 @@ function ealert_node_insert($node) {
         $token_service = \Drupal::token();
         $content = $token_service->replace($template, ['node' => $node]);
 
-        $file_name = date('Ymd', $node->getCreatedTime()) . '_' . $node->get('nid')->value . '.htm';
-
-        $dir_name = \Drupal::service('file_system')->realpath(file_default_scheme() . "://") . '/e_alert';
-
-        if (!is_dir($dir_name)) {
-            mkdir($dir_name, 0755);
-        }
-
-        $file_path = $dir_name . '/' . $file_name;
+        // get file path
+        $file_path = EalertUtility::ealert_get_ealert_file_path($node);
         //Process content
         //$content = $term;
         $fp = fopen($file_path, "wb");
