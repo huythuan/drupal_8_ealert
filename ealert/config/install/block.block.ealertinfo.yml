@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ealert
+  theme:
+    - subboot
+id: ealertinfo
+theme: subboot
+region: content
+weight: 0
+provider: null
+plugin: ealert_info
+settings:
+  id: ealert_info
+  label: 'Ealert info'
+  provider: ealert
+  label_display: visible
+visibility: {  }
