@@ -3,6 +3,8 @@ status: true
 dependencies:
   config:
     - field.field.node.ealert.body
+    - field.field.node.ealert.field_add_google_parameters_to_u
+    - field.field.node.ealert.field_convert_to_utf_8
     - field.field.node.ealert.field_outreach
     - field.field.node.ealert.field_preheader
     - field.field.node.ealert.field_subject_line
@@ -11,6 +13,8 @@ dependencies:
   module:
     - path
     - text
+_core:
+  default_config_hash: Svc-BGD_l17wu-at78_5jSYo3B2Pv378DGgeYzCuzKc
 id: node.ealert.default
 targetEntityType: node
 bundle: ealert
@@ -31,6 +35,20 @@ content:
     settings: {  }
     third_party_settings: {  }
     region: content
+  field_add_google_parameters_to_u:
+    type: boolean_checkbox
+    weight: 12
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_convert_to_utf_8:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
   field_outreach:
     type: options_select
     weight: 4

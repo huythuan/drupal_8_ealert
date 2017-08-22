@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_add_google_parameters_to_u
+    - node.type.ealert
+id: node.ealert.field_add_google_parameters_to_u
+field_name: field_add_google_parameters_to_u
+entity_type: node
+bundle: ealert
+label: 'Add Google Parameters to URL'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

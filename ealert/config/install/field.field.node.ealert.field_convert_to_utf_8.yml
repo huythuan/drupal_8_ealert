@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_convert_to_utf_8
+    - node.type.ealert
+id: node.ealert.field_convert_to_utf_8
+field_name: field_convert_to_utf_8
+entity_type: node
+bundle: ealert
+label: 'Convert to  UTF-8'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean
