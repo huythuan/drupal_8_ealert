@@ -80,7 +80,8 @@ class EalertUtility implements ContainerFactoryPluginInterface {
         $file_path = $dir_name . '/' . $file_name;
         return $file_path;
     }
-        /**
+
+    /**
      * Get e-alert file path
      * @param type object $node
      * return string $path
@@ -89,6 +90,77 @@ class EalertUtility implements ContainerFactoryPluginInterface {
         $file_name = date('Ymd', $node->getCreatedTime()) . '_' . $node->get('nid')->value . '.htm';
         return file_create_url('public://') . '/e_alert' . '/' . $file_name;
         //return $file_path;
+    }
+
+    /**
+     * 
+     * @param type $content
+     * Process ealert content
+     */
+    public static function ealert_process_content($node, $content) {
+        //$node->get('field_convert_to_utf_8')->value();
+        if ($node->get('field_convert_to_utf_8')->getString() == '1') {
+            $content = EalertUtility::ealert_sanitize_content($content);
+            $content = EalertUtility::convert_unicode_code_to_charset($content);
+        }
+        return $content;
+    }
+
+    /**
+     * sanitize content, remove special chars
+     * @param type string $content
+     */
+    public static function ealert_sanitize_content($content) {
+        mb_internal_encoding("UTF-8");
+        mb_regex_encoding("UTF-8");
+        //Replace characters
+        $content = mb_ereg_replace('“', '"', $content);
+        $content = mb_ereg_replace('”', '"', $content);
+        $content = mb_ereg_replace('’', "'", $content);
+        $content = htmlentities($content);
+        $content = str_replace('&mdash;', '-', $content);
+        $content = str_replace('&amp;ldquo;', '"', $content);
+        $content = str_replace('&amp;rdquo;', '"', $content);
+        $content = str_replace('&nbsp;', '', $content);
+        $content = str_replace('&amp;lsquo;', "'", $content);
+        $content = str_replace('&amp;rsquo;', "'", $content);
+        $content = str_replace('&ndash;', "-", $content);
+        $content = html_entity_decode($content);
+
+        return $content;
+    }
+
+    /**
+     * Replace unicode to charset
+     * return string $content
+     */
+    public static function convert_unicode_code_to_charset($content) {
+        $unicode_charset = array(
+          '¡' => '&iexcl;',
+          'à' => '&agrave;',
+          'á' => '&aacute;',
+          'â' => '&acirc;',
+          'ã' => '&atilde;',
+          'ä' => '&auml;',
+          'ó' => '&oacute;',
+          'é' => '&eacute;',
+          'ñ' => '&ntilde;',
+          'í' => '&iacute;',
+          'ú' => '&uacute;',
+          'ý' => '&yacute;',
+          'Á' => '&Aacute;',
+          'À' => '&Agrave;',
+          'Â' => '&Acirc;',
+          'Ã' => '&Atilde;',
+          'Ñ' => '&Ntilde;',
+          'Ó' => '&Oacute;',
+          'Ò' => '&Ograve;',
+          'È' => '&Egrave;',
+        );
+        foreach ($unicode_charset as $unicode => $charset) {
+            $content = str_replace($unicode, $charset, $content);
+        }
+        return $content;
     }
 
 }
