@@ -48,22 +48,17 @@ class EalertUtility implements ContainerFactoryPluginInterface {
     }
 
     /**
-     * download e-alert file
+     * Get uri of ealert file
      */
-    public static function ealert_download_file($node) {
-        $file_path = $this->ealert_get_ealert_file_path($node);
-        if (file_exists($file_path)) {
-            // Serve file download.
-            drupal_add_http_header('Pragma', 'public');
-            drupal_add_http_header('Expires', '0');
-            drupal_add_http_header('Cache-Control', 'must-revalidate, post-check=0, pre-check=0');
-            drupal_add_http_header('Content-Type', 'application/vnd.ms-excel');
-            drupal_add_http_header('Content-Disposition', 'attachment; filename=' . basename($file_path) . ';');
-            drupal_add_http_header('Content-Transfer-Encoding', 'binary');
-            drupal_add_http_header('Content-Length', filesize($file_path));
-            readfile($file_path);
-            drupal_exit();
-        }
+    public static function ealert_file_uri($node) {
+        $file_name = date('Ymd', $node->getCreatedTime()) . '_' . $node->get('nid')->value . '.htm';
+        $dir_name = \Drupal::service('file_system')->realpath('public://') . '/e_alert';
+        $data = [
+          'filename' => $file_name,
+          'uri' => $dir_name . '/' . $file_name,
+        ];
+        return $data;
+       
     }
 
     /**

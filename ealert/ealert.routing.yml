@@ -9,3 +9,11 @@ ealert.admin_ealert_settings_form:
   options:
     _admin_route: TRUE
 
+
+ealert.ealert_controller_download:
+  path: '/ealert/download/{nid}'
+  defaults:
+    _controller: '\Drupal\ealert\Controller\EalertController::ealertDownload'
+    _title: 'download'
+  requirements:
+    _permission: 'access content'

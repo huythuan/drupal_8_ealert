@@ -24,11 +24,11 @@ class EalertInfo extends BlockBase {
             $build = [];
             $build['ealert_info']['#cache']['max-age'] = 0; //disable the cache
             $build['ealert_info']['#markup'] = 'Implement EalertInfo.';
-
+            $host = \Drupal::request()->getHost();
             // You can get nid and anything else you need from the node object.
             $nid = $node->id();
             $file_path = EalertUtility::ealert_get_ealert_file_url($node);
-            $download =  '<a href="' . $file_path . '" download>Download</a> ';
+            $download =  '<a href="http://165.107.185.115/samoca/ealert/download/' . $nid .'">Download</a> ';
             $download .=  '| <a href="' . $file_path . '" target="_blank">View</a>';
             $build['ealert_info']['#markup'] = $download;
             return $build;
